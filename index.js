@@ -7,6 +7,8 @@
 // Finalizando: Gerar um .doc formatado com a pergunta e as respectivas respostas.
 
 
+// Link alvo (para testes): https://www.passeidireto.com/arquivo/76959267/teste-do-capitulo-6-cybersecurity-essentials 
+
 // Primeira solução:
 
 const preCap6 = document.querySelector(".preview-text.fancy-scroll.pd-paragraph-sm");
