@@ -1,21 +1,32 @@
-// Projeto Valle
+// Projeto Valle 21/10/2022
 // Objetivos:
 
 // Automatizar solução "passei direto" 
 
-// Fluxo: pesquisar pelo titulo da solução > acessar automaticamente o "passei direto" e realizar o search > pegar a tag pre > tratar a lista e converter em array > realizar this >
+// Fluxo: pesquisar pelo titulo da solução > acessar automaticamente o "passei direto" e realizar o search > 
+// > pegar a tag pre (firstChild do querySelector) > tratar o textContent e converter em array simples e depois biDimensional (split("\n") e depois split(" ")  
+// > realizar this (this = essas funções abaixo > 
 // Finalizando: Gerar um .doc formatado com a pergunta e as respectivas respostas.
-
 
 // Link alvo (para testes): https://www.passeidireto.com/arquivo/76959267/teste-do-capitulo-6-cybersecurity-essentials 
 
 // Primeira solução:
 
+
+// pega a div container do <pre>
 const preCap6 = document.querySelector(".preview-text.fancy-scroll.pd-paragraph-sm");
+
+// finalmente pega a tag <pre>
 const preCap6Tratado = preCap6.firstChild;
+
+// faz o primeiro tratamento do texto e splita nos enter (ou seja, cada linha do texto)
 const preCap6TratadoSemN = preCap6Tratado.textContent.split("\n");
+
+// transforma em array biDimensional agora splitando pelos espaços (para poder comparar no for)
 const preCap6TratadoSemNeSemSpace = preCap6TratadoSemN.map(x => x.split(" "));
 
+
+// Solução primaria (sem tratamentos e melhorias aqui ja é possível verificar as corretas
 for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
     for (let x = 0; x < preCap6TratadoSemNeSemSpace[i].length; x++) {
         if (preCap6TratadoSemNeSemSpace[i][x] == "Correto!Correto!") {
@@ -24,8 +35,7 @@ for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
     }
 }
 
-// melhoria no for:
-
+// Solução secundária: melhoria no for (Aqui melhora a vizualização sobre qual pergunta é referênte a resposta. (Separando em namespaces)
 
 for (let i = 0; i < preSemNeSemSpace.length; i++) {
     for (let x = 0; x < preSemNeSemSpace[i].length; x++) {
@@ -42,7 +52,9 @@ for (let i = 0; i < preSemNeSemSpace.length; i++) {
 /\ gerando undefined porém funcional!
 
 
-// formatado corrente:
+// Solução terceária: formatado corrente (Faltando ajustes!) 
+// Solução necessária pois foi detectado que não é só a string "Correto!Correto!" a flag necessária pois também tem "Resposta corretaResposta correta"
+// melhorias para tratar e gerar um resultado mais coerente. 
 
 for (let i = 0; i < preSemNeSemSpace.length; i++) {
     for (let x = 0; x < preSemNeSemSpace[i].length; x++) {
