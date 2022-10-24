@@ -37,13 +37,13 @@ for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
 
 // Solução secundária: melhoria no for (Aqui melhora a vizualização sobre qual pergunta é referênte a resposta. (Separando em namespaces)
 
-for (let i = 0; i < preSemNeSemSpace.length; i++) {
-    for (let x = 0; x < preSemNeSemSpace[i].length; x++) {
-        if (preSemNeSemSpace[i][x] == "Correto!Correto!" || preSemNeSemSpace[i][x] == "ptsPergunta") {
-            if (preSemNeSemSpace[i][x] == "ptsPergunta") {
-                console.log(preSemNeSemSpace[i].join(" "))
+for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
+    for (let x = 0; x < preCap6TratadoSemNeSemSpace[i].length; x++) {
+        if (preCap6TratadoSemNeSemSpace[i][x] == "Correto!Correto!" || preCap6TratadoSemNeSemSpace[i][x] == "ptsPergunta") {
+            if (preCap6TratadoSemNeSemSpace[i][x] == "ptsPergunta") {
+                console.log(preCap6TratadoSemNeSemSpace[i].join(" "))
             } else {
-                console.log(console.log(preSemNeSemSpace[i].join(" ")))
+                console.log(preCap6TratadoSemNeSemSpace[i].join(" "))
             }
         }
     }
@@ -56,20 +56,75 @@ for (let i = 0; i < preSemNeSemSpace.length; i++) {
 // Solução necessária pois foi detectado que não é só a string "Correto!Correto!" a flag necessária pois também tem "Resposta corretaResposta correta"
 // melhorias para tratar e gerar um resultado mais coerente. 
 
-for (let i = 0; i < preSemNeSemSpace.length; i++) {
-    for (let x = 0; x < preSemNeSemSpace[i].length; x++) {
-        if (preSemNeSemSpace[i][x] == "Correto!Correto!" || preSemNeSemSpace[i][x] == "ptsPergunta" || preSemNeSemSpace[i][x] == "Resposta corretaResposta correta") {
-            if (preSemNeSemSpace[i][x] == "Resposta corretaResposta correta") {
+for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
+    for (let x = 0; x < preCap6TratadoSemNeSemSpace[i].length; x++) {
+        if (preCap6TratadoSemNeSemSpace[i][x] == "Correto!Correto!" || preCap6TratadoSemNeSemSpace[i][x] == "ptsPergunta" || preCap6TratadoSemNeSemSpace[i][x] == "Resposta corretaResposta correta") {
+            if (preCap6TratadoSemNeSemSpace[i][x] == "Resposta corretaResposta correta") {
                 console.log("achou", i, x)
             }
-            if (preSemNeSemSpace[i][x] == "ptsPergunta") {
-                console.log(preSemNeSemSpace[i].join(" "))
+            if (preCap6TratadoSemNeSemSpace[i][x] == "ptsPergunta") {
+                console.log(preCap6TratadoSemNeSemSpace[i].join(" "))
             } else {
-                console.log(preSemNeSemSpace[i].join(" "))
+                console.log(preCap6TratadoSemNeSemSpace[i].join(" "))
             }
         }
     }
 }
+
+
+
+// Solução quaternária: Ajusta lógica para melhoria de performance e identificar flag faltante "Resposta corretaResposta correta".
+
+for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
+    if (preCap6TratadoSemNeSemSpace[i] == "Resposta corretaResposta correta"){
+        console.log("achou for de fora", i, x);
+        }       
+    
+    for (let x = 0; x < preCap6TratadoSemNeSemSpace[i].length; x++) {
+            
+        if (preCap6TratadoSemNeSemSpace[i][x] == "ptsPergunta") {
+            console.log("================================================");
+            console.log(preCap6TratadoSemNeSemSpace[i].join(" "));
+        }
+        else if (preCap6TratadoSemNeSemSpace[i][x] == "Correto!Correto!"){
+            console.log(preCap6TratadoSemNeSemSpace[i].join(" "));
+        }
+        else if (preCap6TratadoSemNeSemSpace[i][x] == "Resposta corretaResposta correta"){
+            console.log("achou for de dentro", i, x);
+        }
+    }
+}
+
+
+// Solução quintenária: Ajusta UX e melhora visibilidade.
+
+for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
+    if (preCap6TratadoSemNeSemSpace[i] == "Resposta corretaResposta correta"){
+        console.log("achou for de fora", i, x);
+    }       
+    
+    for (let x = 0; x < preCap6TratadoSemNeSemSpace[i].length; x++) {
+            
+        if (preCap6TratadoSemNeSemSpace[i][x] == "ptsPergunta") {
+            console.log("================================================");
+            console.log(preCap6TratadoSemNeSemSpace[i].join(" "));
+            var flag = "pamonha";
+            cont = 1;
+            while (!preCap6TratadoSemNeSemSpace[i + cont][0] == ""){
+                console.log(preCap6TratadoSemNeSemSpace[i + cont].join(" "));
+                cont++;
+            }
+        }
+        else if (preCap6TratadoSemNeSemSpace[i][x] == "Correto!Correto!"){
+            console.log(preCap6TratadoSemNeSemSpace[i].join(" ").replace("Correto!Correto!", " ✓ Correto"));
+        }
+        else if (preCap6TratadoSemNeSemSpace[i][x] == "Resposta corretaResposta correta"){
+            console.log("achou for de dentro", i, x);
+        }
+    }
+}
+
+
 
 
 
