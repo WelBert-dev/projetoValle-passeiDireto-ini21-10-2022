@@ -128,23 +128,24 @@ for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
 // Solução sextenária: Ajusta visibilidade, filtra URL e Data com regex (Obs: pergunta 01 não cai no filtro, analisar lógica) porém de resto esta funcional.
 // e acrescenta uns frufru pra deixar centralizado e de acordo com comprimento do texto
 
+var reg = /([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4})/g;
+var regUrl = /((?:https|http|ftp)?:\/\/)?([^\/,\s]+\.[^\/,\s]+?)(?=\/|,|\s|$|\?|#)(.*)/gm;
+// var str = "Um texto com uma data aqui 01/01/2012 e mais uma aqui 03/04/2000";
+// var todasAsDatas = str.match(reg);
+
 
 // pega a maior linha contando a quantidade de string
 
 var max = preCap6TratadoSemN[0].length;
 var indexOfMax = preCap6TratadoSemN[0];
 for (let i = 0; i < preCap6TratadoSemN.length; i++) {
-    if (preCap6TratadoSemN[i].length >= max) {
+    if (preCap6TratadoSemN[i].length >= max && !preCap6TratadoSemN[i].match(reg) && !preCap6TratadoSemN[i].match(regUrl) && preCap6TratadoSemN[i] != 'as habilidades e o conhecimento apresentados no capítulo e de ajudá-lo a se preparar para o teste final. Você terá várias chances e a nota não') {
         max = preCap6TratadoSemN[i].length;
         indexOfMax = preCap6TratadoSemN[i];
     }
     console.log(max, indexOfMax);
 }
 
-var reg = /([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4})/g;
-var regUrl = /((?:https|http|ftp)?:\/\/)?([^\/,\s]+\.[^\/,\s]+?)(?=\/|,|\s|$|\?|#)(.*)/gm;
-// var str = "Um texto com uma data aqui 01/01/2012 e mais uma aqui 03/04/2000";
-// var todasAsDatas = str.match(reg);
 
 for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
     if (preCap6TratadoSemNeSemSpace[i] == "Resposta corretaResposta correta") {
@@ -182,6 +183,8 @@ for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
     }
 }
 
+
+preCap6TratadoSemN[i].length >= max && !preCap6TratadoSemN[i].match(reg) && !preCap6TratadoSemN[i].match(regUrl) && preCap6TratadoSemN[i] != 'as habilidades e o conhecimento apresentados no capítulo e de ajudá-lo a se preparar para o teste final. Você terá várias chances e a nota não'
 
 
 
