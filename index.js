@@ -125,6 +125,63 @@ for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
 }
 
 
+// Solução sextenária: Ajusta visibilidade, filtra URL e Data com regex (Obs: pergunta 01 não cai no filtro, analisar lógica) porém de resto esta funcional.
+// e acrescenta uns frufru pra deixar centralizado e de acordo com comprimento do texto
+
+
+// pega a maior linha contando a quantidade de string
+
+var max = preCap6TratadoSemN[0].length;
+var indexOfMax = preCap6TratadoSemN[0];
+for (let i = 0; i < preCap6TratadoSemN.length; i++) {
+    if (preCap6TratadoSemN[i].length >= max) {
+        max = preCap6TratadoSemN[i].length;
+        indexOfMax = preCap6TratadoSemN[i];
+    }
+    console.log(max, indexOfMax);
+}
+
+var reg = /([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4})/g;
+var regUrl = /((?:https|http|ftp)?:\/\/)?([^\/,\s]+\.[^\/,\s]+?)(?=\/|,|\s|$|\?|#)(.*)/gm;
+// var str = "Um texto com uma data aqui 01/01/2012 e mais uma aqui 03/04/2000";
+// var todasAsDatas = str.match(reg);
+
+for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
+    if (preCap6TratadoSemNeSemSpace[i] == "Resposta corretaResposta correta") {
+        console.log("achou for de fora", i, x);
+    }
+
+    for (let x = 0; x < preCap6TratadoSemNeSemSpace[i].length; x++) {
+        if (preCap6TratadoSemNeSemSpace[i][x] == "ptsPergunta") {
+            console.log((String("=").repeat(max)));
+            console.log((String(" ").repeat((max / 2) - (preCap6TratadoSemNeSemSpace[i].join(" ").length / 2))) + "[ " + preCap6TratadoSemNeSemSpace[i].join(" ") + " ]");
+            console.log("");
+            var flag = "pamonha";
+            cont = 1;
+            while (!preCap6TratadoSemNeSemSpace[i + cont][0] == "" && !preCap6TratadoSemNeSemSpace[i + cont][0].match(reg) && !preCap6TratadoSemNeSemSpace[i + cont][0].match(regUrl)) {
+                console.log(preCap6TratadoSemNeSemSpace[i + cont].join(" "));
+                cont++;
+            }
+            console.log("");
+            break;
+            
+        } else if (preCap6TratadoSemNeSemSpace[i][x] == "" && !preCap6TratadoSemNeSemSpace[i].find(r => r == "Correto!Correto!") && !preCap6TratadoSemNeSemSpace[i].find(r => r == "Refer")) {
+            console.log("[ ]" + preCap6TratadoSemNeSemSpace[i].join(" "));
+            break;
+        } else if (preCap6TratadoSemNeSemSpace[i][x] != "" && preCap6TratadoSemNeSemSpace[i][x] == "Correto!Correto!") {
+            console.log("[X]" + preCap6TratadoSemNeSemSpace[i].join(" ").replace("Correto!Correto!", " ✓ Correto"));
+            break;
+        } else if (preCap6TratadoSemNeSemSpace[i][x] == "Resposta corretaResposta correta") {
+            console.log("achou for de dentro", i, x);
+            break;
+        } else if (preCap6TratadoSemNeSemSpace[i][0] == "Refer") {
+            console.log("");
+            console.log((String(" ").repeat((max / 2) - (preCap6TratadoSemNeSemSpace[i].join(" ").length / 2))) + "- " +  preCap6TratadoSemNeSemSpace[i].join(" "));
+            break;
+        }
+    }
+}
+
 
 
 
