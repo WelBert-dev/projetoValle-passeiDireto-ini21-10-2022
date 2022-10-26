@@ -399,6 +399,21 @@ const preCap6TratadoSemN = preCap6Tratado.textContent.split("\n");
 // transforma em array biDimensional agora splitando pelos espaços (para poder comparar no for)
 const preCap6TratadoSemNeSemSpace = preCap6TratadoSemN.map(x => x.split(" "));
 
+// verifica qual o formato das respostas:
+for (let i = 0; i < preCap6TratadoSemN.length; i++) {
+    if (preCap6TratadoSemN[i].split(":")[0] == "The correct answer is") {
+        console.log(preCap6TratadoSemN[i]);
+        for (let x = 0; x < preCap6TratadoSemN.length; x++) {
+            for (let y = 0; y < preCap6TratadoSemN[x].length; y++) {
+                if (preCap6TratadoSemN[x][y] == "?") {
+                    console.log(preCap6TratadoSemN[x]);
+                }
+            }
+        }
+    }
+}
+
+
 
 // Faz tratamento do array simples de 1 dimensão:
 
@@ -408,9 +423,8 @@ var regUrl = /((?:https|http|ftp)?:\/\/)?([^\/,\s]+\.[^\/,\s]+?)(?=\/|,|\s|$|\?|
 var novoArrayTratado = [];
 
 for (let i = 0; i < preCap6TratadoSemN.length; i++) {
-    if (!preCap6TratadoSemN[i].match(regUrl) && !preCap6TratadoSemN[i].split(" ")[0].match(regData) || preCap6TratadoSemN[i].split(" ").find(res => res.split(" ") == "(Escolha")) {
+    if (!preCap6TratadoSemN[i].match(regUrl) && !preCap6TratadoSemN[i].split(" ")[0].match(regData) || preCap6TratadoSemN[i].split(" ").find(res => res.split(" ") == "(Escolha") || preCap6TratadoSemN[i].split(" ").find(res => res.split(" ") == "Refer")) {
         novoArrayTratado.push(preCap6TratadoSemN[i]);
-        console.log("dentro do if", preCap6TratadoSemN[i]);
     }
 }
 
@@ -440,7 +454,6 @@ for (let i = 0; i < novoArrayTratadoSemSpace.length; i++) {
             console.log("");
             var cont = 1;
             while (!novoArrayTratadoSemSpace[i + cont][0] == "") {
-		console.log(novoArrayTratadoSemSpace[i + cont][0]);
                 if(cont == 1){
 			console.log(novoArrayTratadoSemSpace[i][x + 1] + "-) " + novoArrayTratado[i + cont]);
 		}else {
