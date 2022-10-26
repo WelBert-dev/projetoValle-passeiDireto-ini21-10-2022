@@ -387,6 +387,19 @@ for (let i = 0; i < preCap6TratadoSemN.length; i++) {
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 // Solução octavenaria: realiza parsing das duas logicas na logica raiz funcional:
 
+// Melhor solução até agora (26/10/2022)
+// Capitulo 01 (Total 11 Perguntas): https://www.passeidireto.com/arquivo/77326978/cybersecurity-essentials-capitulo-1-cisco 
+// Capitulo 02/01: (Aqui: 14 com Total 20 Perguntas): https://www.passeidireto.com/arquivo/81552774/teste-do-capitulo-2-cybersecurity-essentials
+// Capitulo 02/02: https://www.passeidireto.com/arquivo/81552774/teste-do-capitulo-2-cybersecurity-essentials/2
+// Capitulo 03/01: https://www.passeidireto.com/arquivo/78199544/teste-do-capitulo-3-cybersecurity-essentials
+// Capitulo 03/02: https://www.passeidireto.com/arquivo/78199544/teste-do-capitulo-3-cybersecurity-essentials/2
+// Capitulo 04/01: https://www.passeidireto.com/arquivo/78039593/teste-do-capitulo-4-cybersecurity-essentials <-- EM TODOS SITES SOBRE QUEBROU UM POUCO
+// Capitulo 04/02: https://www.passeidireto.com/arquivo/78039593/teste-do-capitulo-4-cybersecurity-essentials/2
+// Capitulo 05/01: https://www.passeidireto.com/arquivo/76959266/teste-do-capitulo-5-cybersecurity-essentials
+// Capitulo 05/02: https://www.passeidireto.com/arquivo/76959266/teste-do-capitulo-5-cybersecurity-essentials/2
+// Capitulo 06/01: https://www.passeidireto.com/arquivo/76959267/teste-do-capitulo-6-cybersecurity-essentials
+// Capitulo 06/02: https://www.passeidireto.com/arquivo/76959267/teste-do-capitulo-6-cybersecurity-essentials/2
+
 // pega a div container do <pre>
 const preCap6 = document.querySelector(".preview-text.fancy-scroll.pd-paragraph-sm");
 
@@ -398,22 +411,6 @@ const preCap6TratadoSemN = preCap6Tratado.textContent.split("\n");
 
 // transforma em array biDimensional agora splitando pelos espaços (para poder comparar no for)
 const preCap6TratadoSemNeSemSpace = preCap6TratadoSemN.map(x => x.split(" "));
-
-// verifica qual o formato das respostas:
-for (let i = 0; i < preCap6TratadoSemN.length; i++) {
-    if (preCap6TratadoSemN[i].split(":")[0] == "The correct answer is") {
-        console.log(preCap6TratadoSemN[i]);
-        for (let x = 0; x < preCap6TratadoSemN.length; x++) {
-            for (let y = 0; y < preCap6TratadoSemN[x].length; y++) {
-                if (preCap6TratadoSemN[x][y] == "?") {
-                    console.log(preCap6TratadoSemN[x]);
-                }
-            }
-        }
-    }
-}
-
-
 
 // Faz tratamento do array simples de 1 dimensão:
 
@@ -428,7 +425,6 @@ for (let i = 0; i < preCap6TratadoSemN.length; i++) {
     }
 }
 
-
 var novoArrayTratadoSemSpace = novoArrayTratado.map(x => x.split(" "));
 
 // pega a maior linha contando a quantidade de string
@@ -439,7 +435,6 @@ for (let i = 0; i < novoArrayTratado.length; i++) {
         max = novoArrayTratado[i].length;
         indexOfMax = novoArrayTratado[i];
     }
-    console.log(max, indexOfMax);
 }
 
 for (let i = 0; i < novoArrayTratadoSemSpace.length; i++) {
@@ -483,6 +478,46 @@ for (let i = 0; i < novoArrayTratadoSemSpace.length; i++) {
 }
 
 
+// ------------------------------------------------------------------
+
+// Solução novactenaria: Tenta deixar o algoritmo generico para todos tipos de formatos de entrada, aqui ta dificil kkkk
+// IMCOMPLETO!
+
+// verifica qual o formato das respostas:
+for (let i = 0; i < novoArrayTratado.length; i++) {
+    if (novoArrayTratado[i].split(":")[0] == "The correct answer is") {
+	console.log("---------------------------------------");
+        console.log(novoArrayTratado[i]);
+        for (let x = 0; x < novoArrayTratado.length; x++) {
+            for (let y = 0; y < novoArrayTratado[x].length; y++) {
+                if (novoArrayTratado[x][y] == "?" || novoArrayTratado[x][y] == "." || novoArrayTratado[x][y] == ":" && novoArrayTratado[x].split(":")[0] != "The correct answer is") {
+                    console.log(novoArrayTratado[x]);
+		    if (novoArrayTratado[x].split(" ")[0] == "Refer")
+		    {
+			    let cont = 1;
+			    while (novoArrayTratado[x + cont].split(" ")[0] != "Refer" || ) {
+				console.log(novoArrayTratado[x]);
+			    	cont ++;
+			    }
+		    }
+                }
+            }
+        }
+    }
+}
+
+
+for (let i = 0; i < novoArrayTratado.length; i++) {
+    if (novoArrayTratado[i].split(":")[0] == "The correct answer is" || novoArrayTratado[i].split(":")[0] == "The correct answer are" ) {
+	console.log("---------------------------------------");
+        console.log(novoArrayTratado[i]);
+        for (let x = 0; x < novoArrayTratado.length; x++) {
+            for (let y = 0; y < novoArrayTratado[x].length; y++) {
+                console.log(novoArrayTratado[x]);
+            }
+        }
+    }
+}
 
 
 
