@@ -184,10 +184,88 @@ for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
 }
 
 
-preCap6TratadoSemN[i].length >= max && !preCap6TratadoSemN[i].match(reg) && !preCap6TratadoSemN[i].match(regUrl) && preCap6TratadoSemN[i] != 'as habilidades e o conhecimento apresentados no capítulo e de ajudá-lo a se preparar para o teste final. Você terá várias chances e a nota não'
+//----------------------------- Solução setenária: Melhora UX e retira informações desnecessárias! ---------------- faltando terminar
+
+// pega a div container do <pre>
+const preCap6 = document.querySelector(".preview-text.fancy-scroll.pd-paragraph-sm");
+
+// finalmente pega a tag <pre>
+const preCap6Tratado = preCap6.firstChild;
+
+// faz o primeiro tratamento do texto e splita nos enter (ou seja, cada linha do texto)
+const preCap6TratadoSemN = preCap6Tratado.textContent.split("\n");
+
+// transforma em array biDimensional agora splitando pelos espaços (para poder comparar no for)
+const preCap6TratadoSemNeSemSpace = preCap6TratadoSemN.map(x => x.split(" "));
 
 
+// Limpa e elimina as URL's e Datas aleatórias com regex:
 
+var regData = /([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4})/g;
+var regUrl = /((?:https|http|ftp)?:\/\/)?([^\/,\s]+\.[^\/,\s]+?)(?=\/|,|\s|$|\?|#)(.*)/gm;
+// var todasAsDatas = str.match(reg);
+var novoArrayTratado = [];
+
+for (let i = 0; i < preCap6TratadoSemN.length; i++) {
+    if(!preCap6TratadoSemN[i].match(regUrl) && !preCap6TratadoSemN[i].match(regData)) {
+        novoArrayTratado.push(preCap6TratadoSemN[i]);
+    }
+}
+
+var novoArrayTratadoSemSpace = novoArrayTratado.map(x => x.split(" "));
+
+// pega a maior linha contando a quantidade de string
+
+var max = novoArrayTratado[0].length;
+for (let i = 0; i < novoArrayTratado.length; i++) {
+    if (novoArrayTratado[i].length >= max && novoArrayTratado[i] != 'as habilidades e o conhecimento apresentados no capítulo e de ajudá-lo a se preparar para o teste final. Você terá várias chances e a nota não') {
+        max = novoArrayTratado[i].length;
+        indexOfMax = novoArrayTratado[i];
+    }
+    console.log(max, indexOfMax);
+}
+
+for (let i = 0; i < novoArrayTratadoSemSpace.length; i++) {
+    if (novoArrayTratadoSemSpace[i] == "Resposta corretaResposta correta") {
+        console.log("achou for de fora", i, x);
+    }
+
+    for (let x = 0; x < novoArrayTratadoSemSpace[i].length; x++) {
+        if (novoArrayTratadoSemSpace[i][x] == "ptsPergunta") {
+            console.log((String("=").repeat(max)));
+            console.log((String(" ").repeat((max / 2) - (novoArrayTratadoSemSpace[i].join(" ").length / 2))) + "[ " + novoArrayTratadoSemSpace[i].join(" ") + " ]");
+            console.log("");
+            var flag = "pamonha";
+            cont = 1;
+            while (!novoArrayTratadoSemSpace[i + cont][0] == "") {
+                if(cont == 1){
+			console.log(novoArrayTratadoSemSpace[i][x + 1] + "-) " + novoArrayTratadoSemSpace[i + cont].join(" "));
+		}else {
+			console.log(novoArrayTratadoSemSpace[i + cont].join(" "));
+		}
+		        console.log("de fora");
+                cont++;
+            }
+            console.log("");
+            break;
+            
+        } else if (novoArrayTratadoSemSpace[i][x] == "" && !novoArrayTratadoSemSpace[i].find(r => r == "Correto!Correto!") && !novoArrayTratadoSemSpace[i].find(r => r == "Refer")) {
+            console.log("[ ]" + novoArrayTratadoSemSpace[i].join(" "));
+            break;
+        } else if (novoArrayTratadoSemSpace[i][x] != "" && novoArrayTratadoSemSpace[i][x] == "Correto!Correto!") {
+	    var respCorreta = "%c[X]" + novoArrayTratadoSemSpace[i].join(" ").replace("Correto!Correto!", " ✓ Correto");
+            console.log(respCorreta, "background: #FFF; color: #289b10");
+            break;
+        } else if (novoArrayTratadoSemSpace[i][x] == "Resposta corretaResposta correta") {
+            console.log("achou for de dentro", i, x);
+            break;
+        } else if (novoArrayTratadoSemSpace[i][0] == "Refer") {
+            console.log("");
+            console.log((String(" ").repeat((max / 2) - (novoArrayTratadoSemSpace[i].join(" ").length / 2))) + "%c- " +  novoArrayTratadoSemSpace[i].join(" "), "background: #FFF; color: #f57c0b");
+            break;
+        }
+    }
+}
 
 
 
