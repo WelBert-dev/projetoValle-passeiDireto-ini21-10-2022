@@ -35,6 +35,9 @@ for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
     }
 }
 
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Solução secundária: melhoria no for (Aqui melhora a vizualização sobre qual pergunta é referênte a resposta. (Separando em namespaces)
 
 for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
@@ -73,6 +76,7 @@ for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
 
 
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Solução quaternária: Ajusta lógica para melhoria de performance e identificar flag faltante "Resposta corretaResposta correta".
 
 for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
@@ -96,6 +100,7 @@ for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
 }
 
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Solução quintenária: Ajusta UX e melhora visibilidade.
 
 for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
@@ -125,8 +130,12 @@ for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
 }
 
 
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Solução sextenária: Ajusta visibilidade, filtra URL e Data com regex (Obs: pergunta 01 não cai no filtro, analisar lógica) porém de resto esta funcional.
 // e acrescenta uns frufru pra deixar centralizado e de acordo com comprimento do texto
+
+// Obs: Alguns cenários não funcionando (exemplo a parte 01 do cap06, a questão 1 não cai nos filtros e retorna apenas a resposta correta (faltando pergunta)
 
 var reg = /([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4})/g;
 var regUrl = /((?:https|http|ftp)?:\/\/)?([^\/,\s]+\.[^\/,\s]+?)(?=\/|,|\s|$|\?|#)(.*)/gm;
@@ -183,8 +192,10 @@ for (let i = 0; i < preCap6TratadoSemNeSemSpace.length; i++) {
     }
 }
 
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //----------------------------- Solução setenária: Melhora UX e retira informações desnecessárias! ---------------- faltando terminar
+
+// Obs: Aqui ja ajusta e cai na flag a pergunta 01 da parte 01 do cap06 
 
 // pega a div container do <pre>
 const preCap6 = document.querySelector(".preview-text.fancy-scroll.pd-paragraph-sm");
@@ -268,7 +279,107 @@ for (let i = 0; i < novoArrayTratadoSemSpace.length; i++) {
 }
 
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Solução setenária: Refatorada, código diferente com menas funções e tornado os mesmos resultados
 
+// pega a div container do <pre>
+const preCap6 = document.querySelector(".preview-text.fancy-scroll.pd-paragraph-sm");
+
+// finalmente pega a tag <pre>
+const preCap6Tratado = preCap6.firstChild;
+
+// faz o primeiro tratamento do texto e splita nos enter (ou seja, cada linha do texto)
+const preCap6TratadoSemN = preCap6Tratado.textContent.split("\n");
+
+// transforma em array biDimensional agora splitando pelos espaços (para poder comparar no for)
+const preCap6TratadoSemNeSemSpace = preCap6TratadoSemN.map(x => x.split(" "));
+
+
+// Limpa e elimina as URL's e Datas aleatórias com regex:
+
+var regData = /([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4})/g;
+var regUrl = /((?:https|http|ftp)?:\/\/)?([^\/,\s]+\.[^\/,\s]+?)(?=\/|,|\s|$|\?|#)(.*)/gm;
+// var todasAsDatas = str.match(reg);
+var novoArrayTratado = [];
+
+for (let i = 0; i < preCap6TratadoSemN.length; i++) {
+    if(!preCap6TratadoSemN[i].match(regUrl) && !preCap6TratadoSemN[i].match(regData)) {
+        novoArrayTratado.push(preCap6TratadoSemN[i]);
+	console.log("dentro do if", preCap6TratadoSemN[i]);
+    }
+    console.log("FORA do if", preCap6TratadoSemN[i], "URL",preCap6TratadoSemN[i] == preCap6TratadoSemN[i].match(regUrl), "DATA",preCap6TratadoSemN[i] == preCap6TratadoSemN[i].match(regData));
+}
+
+var novoArrayTratadoSemSpace = novoArrayTratado.map(x => x.split(" "));
+
+// pega a maior linha contando a quantidade de string
+
+var max = novoArrayTratado[0].length;
+for (let i = 0; i < novoArrayTratado.length; i++) {
+    if (novoArrayTratado[i].length >= max && novoArrayTratado[i] != 'as habilidades e o conhecimento apresentados no capítulo e de ajudá-lo a se preparar para o teste final. Você terá várias chances e a nota não') {
+        max = novoArrayTratado[i].length;
+        indexOfMax = novoArrayTratado[i];
+    }
+    console.log(max, indexOfMax);
+}
+
+for (let i = 0; i < novoArrayTratadoSemSpace.length; i++) {
+    if (novoArrayTratadoSemSpace[i] == "Resposta corretaResposta correta") {
+        console.log("achou for de fora", i, x);
+    }
+
+    for (let x = 0; x < novoArrayTratadoSemSpace[i].length; x++) {
+        if (novoArrayTratadoSemSpace[i][x] == "ptsPergunta") {
+            console.log((String("=").repeat(max)));
+            console.log((String(" ").repeat((max / 2) - (novoArrayTratado[i].length / 2))) + "[ " + novoArrayTratado[i] + " ]");
+            console.log("");
+            var flag = "pamonha";
+            cont = 1;
+            while (!novoArrayTratadoSemSpace[i + cont][0] == "") {
+		console.log(novoArrayTratadoSemSpace[i + cont][0]);
+                if(cont == 1){
+			console.log(novoArrayTratadoSemSpace[i][x + 1] + "-) " + novoArrayTratado[i + cont]);
+		}else {
+			console.log(novoArrayTratado[i + cont]);
+		}
+                cont++;
+            }
+            console.log("");
+            break;
+            
+        } else if (novoArrayTratadoSemSpace[i][x] == "" && !novoArrayTratadoSemSpace[i].find(r => r == "Correto!Correto!") && !novoArrayTratadoSemSpace[i].find(r => r == "Refer")) {
+            console.log("[ ]" + novoArrayTratado[i]);
+            break;
+        } else if (novoArrayTratadoSemSpace[i][x] != "" && novoArrayTratadoSemSpace[i][x] == "Correto!Correto!") {
+	    var respCorreta = "%c[X]" + novoArrayTratado[i].replace("Correto!Correto!", " ✓ Correto");
+            console.log(respCorreta, "background: #FFF; color: #289b10");
+            break;
+        } else if (novoArrayTratadoSemSpace[i][x] == "Resposta corretaResposta correta") {
+            console.log("achou for de dentro", i, x);
+            break;
+        } else if (novoArrayTratadoSemSpace[i][0] == "Refer") {
+            console.log("");
+            console.log((String(" ").repeat((max / 2) - (novoArrayTratado[i].length / 2))) + "%c- " +  novoArrayTratado[i], "background: #FFF; color: #f57c0b");
+            break;
+        }
+    }
+}
+
+
+
+// Caçando o erro:
+var regData = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([1][26]|[2468][048]|[3579][26])00))))$/g;
+var regUrl = /((?:https|http|ftp)?:\/\/)?([^\/,\s]+\.[^\/,\s]+?)(?=\/|,|\s|$|\?|#)(.*)/gm;
+// var todasAsDatas = str.match(reg);
+var novoArrayTratado = [];
+
+for (let i = 0; i < preCap6TratadoSemN.length; i++) {
+    if(!preCap6TratadoSemNeSemSpace[i][0].match(regData)) {
+        novoArrayTratado.push(preCap6TratadoSemN[i]);
+	console.log("dentro do if", preCap6TratadoSemN[i]);
+    }
+    console.log("FORA do if", preCap6TratadoSemN[i], "URL",preCap6TratadoSemN[i] == preCap6TratadoSemN[i].match(regUrl), "DATA", String(String(preCap6TratadoSemN[i]).split(" ")).match(regData) == true, "Arraydimensão2index0", preCap6TratadoSemNeSemSpace[i][0], "testando",preCap6TratadoSemN[22].match(regUrl));
+}
 
 
 
