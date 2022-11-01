@@ -527,7 +527,7 @@ for (let i = 0; i < novoArrayTratado.length; i++) {
 // objetivo: tornar genérico para todos tipos de entrada (aos poucos vou tratando rsrs) - 01/11/2022
 // obs: mudanças realizadas no for filtro da criação do novoArrayTratado
 
-// Melhor solução até agora (26/10/2022)
+// Melhor solução até agora (01/11/2022)
 // Capitulo 01 (Total 11 Perguntas): https://www.passeidireto.com/arquivo/77326978/cybersecurity-essentials-capitulo-1-cisco 
 
 // MELHORIAS PARA ESSE LINK:
