@@ -521,7 +521,105 @@ for (let i = 0; i < novoArrayTratado.length; i++) {
 
 
 
+// ------------------------------------------------------------------
 
+// Solução dez: Ajusta filtro para o capitulo 02, porém não adiciona nada.
+// objetivo: tornar genérico para todos tipos de entrada (aos poucos vou tratando rsrs) - 01/11/2022
+// obs: mudanças realizadas no for filtro da criação do novoArrayTratado
+
+// Melhor solução até agora (26/10/2022)
+// Capitulo 01 (Total 11 Perguntas): https://www.passeidireto.com/arquivo/77326978/cybersecurity-essentials-capitulo-1-cisco 
+
+// MELHORIAS PARA ESSE LINK:
+// Capitulo 02/01: (Aqui: 14 com Total 20 Perguntas): https://www.passeidireto.com/arquivo/81552774/teste-do-capitulo-2-cybersecurity-essentials
+
+// Capitulo 02/02: https://www.passeidireto.com/arquivo/81552774/teste-do-capitulo-2-cybersecurity-essentials/2
+// Capitulo 03/01: https://www.passeidireto.com/arquivo/78199544/teste-do-capitulo-3-cybersecurity-essentials
+// Capitulo 03/02: https://www.passeidireto.com/arquivo/78199544/teste-do-capitulo-3-cybersecurity-essentials/2
+// Capitulo 04/01: https://www.passeidireto.com/arquivo/78039593/teste-do-capitulo-4-cybersecurity-essentials <-- EM TODOS SITES SOBRE QUEBROU UM POUCO
+// Capitulo 04/02: https://www.passeidireto.com/arquivo/78039593/teste-do-capitulo-4-cybersecurity-essentials/2
+// Capitulo 05/01: https://www.passeidireto.com/arquivo/76959266/teste-do-capitulo-5-cybersecurity-essentials
+// Capitulo 05/02: https://www.passeidireto.com/arquivo/76959266/teste-do-capitulo-5-cybersecurity-essentials/2
+// Capitulo 06/01: https://www.passeidireto.com/arquivo/76959267/teste-do-capitulo-6-cybersecurity-essentials
+// Capitulo 06/02: https://www.passeidireto.com/arquivo/76959267/teste-do-capitulo-6-cybersecurity-essentials/2
+
+
+// pega a div container do <pre>
+const preCap6 = document.querySelector(".preview-text.fancy-scroll.pd-paragraph-sm");
+
+// finalmente pega a tag <pre>
+const preCap6Tratado = preCap6.firstChild;
+
+// faz o primeiro tratamento do texto e splita nos enter (ou seja, cada linha do texto)
+const preCap6TratadoSemN = preCap6Tratado.textContent.split("\n");
+
+// transforma em array biDimensional agora splitando pelos espaços (para poder comparar no for)
+const preCap6TratadoSemNeSemSpace = preCap6TratadoSemN.map(x => x.split(" "));
+
+// Faz tratamento do array simples de 1 dimensão:
+
+var regData = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([1][26]|[2468][048]|[3579][26])00))))$/g;
+var regUrl = /((?:https|http|ftp)?:\/\/)?([^\/,\s]+\.[^\/,\s]+?)(?=\/|,|\s|$|\?|#)(.*)/gm;
+
+var novoArrayTratado = [];
+
+for (let i = 0; i < preCap6TratadoSemN.length; i++) {
+    if (!preCap6TratadoSemN[i].match(regUrl) && !preCap6TratadoSemN[i].split(" ")[0].match(regData) || preCap6TratadoSemN[i].split(" ").find(res => res.split(" ") == "(Escolha") || preCap6TratadoSemN[i].split(" ").find(res => res.split(" ") == "(Es-colha") || preCap6TratadoSemN[i].split(" ").find(res => res.split(" ") == "(Escolher") || preCap6TratadoSemN[i].split(" ").find(res => res.split(" ") == "Refer")) {
+        novoArrayTratado.push(preCap6TratadoSemN[i]);
+    }
+}
+
+var novoArrayTratadoSemSpace = novoArrayTratado.map(x => x.split(" "));
+
+// pega a maior linha contando a quantidade de string
+
+var max = novoArrayTratado[0].length;
+for (let i = 0; i < novoArrayTratado.length; i++) {
+    if (novoArrayTratado[i].length >= max && novoArrayTratado[i] != 'as habilidades e o conhecimento apresentados no capítulo e de ajudá-lo a se preparar para o teste final. Você terá várias chances e a nota não') {
+        max = novoArrayTratado[i].length;
+        indexOfMax = novoArrayTratado[i];
+    }
+}
+
+for (let i = 0; i < novoArrayTratadoSemSpace.length; i++) {
+    if (novoArrayTratadoSemSpace[i] == "Resposta corretaResposta correta") {
+        console.log("achou for de fora", i, x);
+    }
+
+    for (let x = 0; x < novoArrayTratadoSemSpace[i].length; x++) {
+        if (novoArrayTratadoSemSpace[i][x] == "ptsPergunta") {
+            console.log((String("=").repeat(max)));
+            console.log((String(" ").repeat((max / 2) - (novoArrayTratado[i].length / 2))) + "[ " + novoArrayTratado[i] + " ]");
+            console.log("");
+            var cont = 1;
+            while (!novoArrayTratadoSemSpace[i + cont][0] == "") {
+                if(cont == 1){
+			console.log(novoArrayTratadoSemSpace[i][x + 1] + "-) " + novoArrayTratado[i + cont]);
+		}else {
+			console.log(novoArrayTratado[i + cont]);
+		}
+                cont++;
+            }
+            console.log("");
+            break;
+            
+        } else if (novoArrayTratadoSemSpace[i][x] == "" && !novoArrayTratadoSemSpace[i].find(r => r == "Correto!Correto!") && !novoArrayTratadoSemSpace[i].find(r => r == "Refer")) {
+            console.log("[ ]" + novoArrayTratado[i]);
+            break;
+        } else if (novoArrayTratadoSemSpace[i][x] != "" && novoArrayTratadoSemSpace[i][x] == "Correto!Correto!") {
+	    var respCorreta = "%c[X]" + novoArrayTratado[i].replace("Correto!Correto!", " ✓ Correto");
+            console.log(respCorreta, "background: #FFF; color: #289b10");
+            break;
+        } else if (novoArrayTratadoSemSpace[i][x] == "Resposta corretaResposta correta") {
+            console.log("achou for de dentro", i, x);
+            break;
+        } else if (novoArrayTratadoSemSpace[i][0] == "Refer") {
+            console.log("");
+            console.log((String(" ").repeat((max / 2) - (novoArrayTratado[i].length / 2))) + "%c- " +  novoArrayTratado[i], "background: #FFF; color: #f57c0b");
+            break;
+        }
+    }
+}
 
 
 
