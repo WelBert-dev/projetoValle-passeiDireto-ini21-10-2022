@@ -901,24 +901,3 @@ for (let i = 0; i < novoArrayTratadoSemSpace.length; i++) {
 }
 
 --------------------------------------------------------// respostas sem tratamento // -------------------------------------------------------------------------------------------------------
-.
-2 / 2 ptsPergunta 9
-Qual das opções é um ponto forte do uso de uma função de hash?
- Pode levar apenas uma mensagem de tamanho fixo. 
- Tem uma saída de tamanho variável. 
- Não é usado comumente na segurança. 
- Dois arquivos diferentes podem ser criados com a mesma saída. 
- É uma função unidirecional e não reversível. Correto!Correto!
-02/05/2020 Teste do Capítulo 5: Cybersecurity Essentials
-https://660925297.netacad.com/courses/983887/quizzes/8846278 10/20
-Refer to curriculum topic: 5.1.1 
-Compreender as propriedades de uma função hash mostra sua aplicabilidade como função
-unidirecional, tamanho de entrada arbitrária e saída fixa.
-2 / 2 ptsPergunta 10
-Qual é o padrão para uma infraestrutura de chave pública gerenciar certificados digitais?
- NIST-SP800 
- x.509 Correto!Correto!
- PKI 
- x.503 
-Refer to curriculum topic: 5.3.2 
-O padrão x.509 é para uma infraestrutura PKI e x.500 é para estruturas de diretório.
