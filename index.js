@@ -1173,3 +1173,90 @@ for (let i = 0; i < novoArrayTratadoSemSpace.length; i++) {
 }
 
 --------------------------------------------------------// respostas sem tratamento // -------------------------------------------------------------------------------------------------------
+
+// -------------------------------------------------------------------------------------------------- AQUI ESTA MEIO ÃHM ainda...
+
+// pega a div container do <pre>
+const preCap6 = document.querySelector(".preview-text.fancy-scroll.pd-paragraph-sm");
+
+// finalmente pega a tag <pre>
+const preCap6Tratado = preCap6.firstChild;
+
+// faz o primeiro tratamento do texto e splita nos enter (ou seja, cada linha do texto)
+const preCap6TratadoSemN = preCap6Tratado.textContent.split("\n");
+
+// transforma em array biDimensional agora splitando pelos espaços (para poder comparar no for)
+const preCap6TratadoSemNeSemSpace = preCap6TratadoSemN.map(x => x.split(" "));
+
+// Faz tratamento do array simples de 1 dimensão:
+
+var regData = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([1][26]|[2468][048]|[3579][26])00))))$/g;
+var regUrl = /((?:https|http|ftp)?:\/\/)?([^\/,\s]+\.[^\/,\s]+?)(?=\/|,|\s|$|\?|#)(.*)/gm;
+
+var novoArrayTratado = [];
+
+for (let i = 0; i < preCap6TratadoSemN.length; i++) {
+    if (!preCap6TratadoSemN[i].match(regUrl) && !preCap6TratadoSemN[i].split(" ")[0].match(regData) || preCap6TratadoSemN[i].split(" ").find(res => res.split(" ") == "(Escolha") || preCap6TratadoSemN[i].split(" ").find(res => res.split(" ") == "(Es-colha") || preCap6TratadoSemN[i].split(" ").find(res => res.split(" ") == "(Escolher") || preCap6TratadoSemN[i].split(" ").find(res => res.split(" ") == "Refer" || preCap6TratadoSemN[i].split(" ").find(res => res.split(".") == ")"))) {
+        novoArrayTratado.push(preCap6TratadoSemN[i]);
+    }
+}
+
+var novoArrayTratadoSemSpace = novoArrayTratado.map(x => x.split(" "));
+
+// pega a maior linha contando a quantidade de string
+
+var max = novoArrayTratado[0].length;
+for (let i = 0; i < novoArrayTratado.length; i++) {
+    if (novoArrayTratado[i].length >= max && novoArrayTratado[i] != 'as habilidades e o conhecimento apresentados no capítulo e de ajudá-lo a se preparar para o teste final. Você terá várias chances e a nota não') {
+        max = novoArrayTratado[i].length;
+        indexOfMax = novoArrayTratado[i];
+    }
+}
+
+for (let i = 0; i < novoArrayTratadoSemSpace.length; i++) {
+    if (novoArrayTratadoSemSpace[i] == "Resposta corretaResposta correta") {
+        console.log("achou for de fora", i, x);
+    }
+
+    for (let x = 0; x < novoArrayTratadoSemSpace[i].length; x++) {
+        if (novoArrayTratadoSemSpace[i][x] == "ptsPergunta") {
+            console.log((String("=").repeat(max)));
+            console.log((String(" ").repeat((max / 2) - (novoArrayTratado[i].length / 2))) + "[ " + novoArrayTratado[i] + " ]");
+            console.log("");
+            var cont = 1;
+            while (!novoArrayTratadoSemSpace[i + cont][0] == "") {
+                if (cont == 1) {
+                    console.log(novoArrayTratadoSemSpace[i][x + 1] + "-) " + novoArrayTratado[i + cont]);
+                } else {
+                    console.log(novoArrayTratado[i + cont]);
+                }
+                cont++;
+            }
+            console.log("");
+            break;
+
+        } else if (novoArrayTratadoSemSpace[i][x] == "" && !novoArrayTratadoSemSpace[i].find(r => r == "Correto!Correto!") && !novoArrayTratadoSemSpace[i].find(r => r == "Refer") && !novoArrayTratadoSemSpace[i].find(r => r == "corretaesposta") && !novoArrayTratadoSemSpace[i].find(r => r.split("!").find(h => h == "Correto"))) { 
+		if (novoArrayTratado[i] != null && novoArrayTratado[i] != "" && novoArrayTratado[i] != " ") {
+			console.log("[ ]" + novoArrayTratado[i].replace("ocê respondeuocê respondeu", "").trim() + ".");
+		}
+            
+            break;
+        } else if (novoArrayTratadoSemSpace[i][x] != "" && novoArrayTratadoSemSpace[i][x] == "Correto!Correto!" || novoArrayTratadoSemSpace[i][x] == "corretaesposta" || novoArrayTratadoSemSpace[i][x].split("!").find(h => h == "Correto")) { 
+            if (novoArrayTratadoSemSpace[i][x] == "Correto!Correto!") {
+                var respCorreta = "%c[X]" + novoArrayTratado[i].replace("Correto!Correto!", " ✓ Correto");
+            } else if (novoArrayTratadoSemSpace[i][x] == "corretaesposta") {
+                var respCorreta = "%c[X]" + novoArrayTratado[i].replace("esposta corretaesposta correta", " ✓ Correto");
+            }
+            console.log(respCorreta, "background: #FFF; color: #289b10");
+            break;
+        } else if (novoArrayTratadoSemSpace[i][x] == "Resposta corretaResposta correta") {
+            console.log("achou for de dentro", i, x);
+            break;
+        } else if (novoArrayTratadoSemSpace[i][0] == "Refer") {
+            console.log("");
+            console.log((String(" ").repeat((max / 2) - (novoArrayTratado[i].length / 2))) + "%c- " + novoArrayTratado[i], "background: #FFF; color: #f57c0b");
+            break;
+        }
+
+    }
+}
