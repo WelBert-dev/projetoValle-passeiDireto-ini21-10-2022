@@ -813,13 +813,13 @@ for (let i = 0; i < novoArrayTratadoSemSpace.length; i++) {
 }
 
 
-// -------------------------------------------------------------------------------------------------- AQUI ESTA MEIO ÃHM ainda...
+// -------------------------------------------------------------------------------------------------- AQUI AJUSTA PARA NOVO SELETOR 28/02/2023
 
 // pega a div container do <pre>
-const preCap6 = document.querySelector(".preview-text.fancy-scroll.pd-paragraph-sm");
+const preCap6 = document.querySelector(".TextPaginatedBox_preview-text__ktJJH.fancy-scroll.pd-paragraph-sm");
 
 // finalmente pega a tag <pre>
-const preCap6Tratado = preCap6.firstChild;
+const preCap6Tratado = preCap6.lastChild;
 
 // faz o primeiro tratamento do texto e splita nos enter (ou seja, cada linha do texto)
 const preCap6TratadoSemN = preCap6Tratado.textContent.split("\n");
